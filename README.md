@@ -1,1 +1,1 @@
-"# YuGiDex-UpdateScript" 
+# YuGiDex-UpdateScript
