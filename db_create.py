@@ -1,5 +1,5 @@
 import sqlite3
-import sys, os
+import os
 import json
 
 
@@ -55,11 +55,17 @@ class updateYuGiDECK:
 
 
     def formatNameString(self, cardName: str):
-
+        """
+            Only formats the " that exists in card names.
+        """
         return cardName.replace(r'"', "[quotes]")
 
 
     def formatCardString(self, cardDesc):
+        """
+            Formats the card descriptions so it does not conflict with sqlite syntax.
+            Replaces /n and /".
+        """
 
         if cardDesc != self.NULL:
            
@@ -67,6 +73,10 @@ class updateYuGiDECK:
 
 
     def insertCard(self, card) -> None:
+        """
+            Adds a card into the card table.
+        """
+
         try:
             self._cur.execute(f"""INSERT INTO card VALUES ({card['id']}, "{card['type']}", "{self.formatNameString(card['name'])}", "{card['englishAttribute']}", "{card['localizedAttribute']}", "{self.formatCardString(card['effectText'])}", "{self.formatCardString(card['pendEffect'])}", {card['pendScale']}, {card['level']}, {card['rank']}, {card['linkRating']}, "{card['linkArrows']}", {card['atk']}, {card['def']}, "{card['properties']}")
         """)
@@ -77,17 +87,24 @@ class updateYuGiDECK:
         
 
     def commitChanges(self) -> None:
+        """
+            Saves changes to the database.        
+        """
 
         self._con.commit()
         self._con.close()
 
     def parseJSON(self):
-
+        """
+            Gets all the JSON cards in the specified language directory.
+        """
         return os.listdir(f"./yugioh-card-history/{self.lang}")
 
 
     def createCard(self, card) -> None:
-        
+        """
+            Transfers all the JSON object data into python dictionary.
+        """
         
         for param in card:
             # print(type(card[param]))
@@ -97,6 +114,9 @@ class updateYuGiDECK:
                 self.currCard[param] = card[param]
 
     def resetCard(self):
+        """
+            Resets the current card back to it's original null state.
+        """
 
         self.currCard = {
             "id": self.NULL,
@@ -117,6 +137,9 @@ class updateYuGiDECK:
         }
 
     def buildDB(self):
+        """
+            Goes to each JSON file and adds the cards into the database.
+        """
 
         self.createTable()
         card_list = self.parseJSON()

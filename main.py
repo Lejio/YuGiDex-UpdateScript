@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     load_dotenv()
     repo = git.Repo('./yugioh-card-history')
-    print(repo.remotes.origin.pull())
+    
 
 
     db_name = "yugidbEN.db"
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     upload.close()
     ftp.close()
-
+    
 
 
     
