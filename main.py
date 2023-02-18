@@ -7,6 +7,7 @@ import os
 
 if __name__ == "__main__":
 
+    # Loads the passwords
     load_dotenv()
     repo = git.Repo('./yugioh-card-history')
     

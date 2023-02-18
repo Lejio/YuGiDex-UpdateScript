@@ -86,6 +86,22 @@ class updateYuGiDECK:
         """
             Adds a card into the card table.
         """
+            # print(card['pendEffect'] == self.NULL)
+        if card['pendEffect'] == self.NULL:
+            card['pendEffect'] = self.NULL
+        else:
+            card['pendEffect'] = f"\"{self.formatCardString(card['pendEffect'])}\""
+            
+        if card['linkArrows'] == self.NULL:
+            card['linkArrows'] = self.NULL
+        else:
+            card['linkArrows'] = f"\"{card['linkArrows']}\""
+            
+        if card['properties'] == self.NULL:
+            card['properties'] = self.NULL
+        else:
+            card['properties'] = f"\"{card['properties']}\""
+        
         
         if self.lang == "ja":
             
@@ -98,15 +114,15 @@ class updateYuGiDECK:
                         "{card['englishAttribute']}", 
                         "{card['localizedAttribute']}", 
                         "{self.formatCardString(card['effectText'])}", 
-                        "{self.formatCardString(card['pendEffect'])}", 
+                        {card['pendEffect']}, 
                         {card['pendScale']}, 
                         {card['level']}, 
                         {card['rank']}, 
                         {card['linkRating']}, 
-                        "{card['linkArrows']}", 
+                        {card['linkArrows']}, 
                         {card['atk']}, 
                         {card['def']}, 
-                        "{card['properties']}",
+                        {card['properties']},
                         {card['new']})""")
             
             except sqlite3.OperationalError:
@@ -124,15 +140,15 @@ class updateYuGiDECK:
                                 "{card['englishAttribute']}", 
                                 "{card['localizedAttribute']}", 
                                 "{self.formatCardString(card['effectText'])}", 
-                                "{self.formatCardString(card['pendEffect'])}", 
+                                {card['pendEffect']}, 
                                 {card['pendScale']}, 
                                 {card['level']}, 
                                 {card['rank']}, 
                                 {card['linkRating']}, 
-                                "{card['linkArrows']}", 
+                                {card['linkArrows']}, 
                                 {card['atk']}, 
                                 {card['def']}, 
-                                "{card['properties']}",
+                                {card['properties']},
                                 {card['new']})""")
             
             except sqlite3.OperationalError:
