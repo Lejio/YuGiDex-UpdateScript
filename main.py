@@ -13,7 +13,12 @@ if __name__ == "__main__":
 
 
     db_name = "yugidbEN.db"
-    os.remove(db_name)
+    
+    try:
+        os.remove(db_name)
+    except FileNotFoundError:
+        pass
+    
     db = updateYuGiDECK(db_name)
     db.buildDB()
 
@@ -31,6 +36,8 @@ if __name__ == "__main__":
     upload.close()
     ftp.close()
     
+    print("\n########################################################\n")
+    print("Upload Completed.")
 
 
     
